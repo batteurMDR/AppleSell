@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, GestureResponderEvent } from "react
 
 export interface ButtonProps {
     onPress: (event: GestureResponderEvent) => void;
-    title: string;
+    title: string | JSX.Element;
     disabled?: boolean;
 }
 

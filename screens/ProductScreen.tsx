@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { HomeStackParamList } from "../Navigation";
 import { NavigationProp, useNavigation } from "@react-navigation/core";
 import Button from "../components/Button";
+import { toggleCart } from "../api/cart";
 
 type ProductScreenProps = NativeStackScreenProps<HomeStackParamList, "product">;
 
@@ -24,6 +25,11 @@ export default function ProductScreen(props: ProductScreenProps) {
                 backgroundColor="transparent"
             />
         ));
+    };
+    const addToCart = () => {
+        if (selectedModel) {
+            toggleCart(product.name, selectedModel, 1);
+        }
     };
 
     return (
@@ -72,7 +78,7 @@ export default function ProductScreen(props: ProductScreenProps) {
             </View>
             <Button
                 onPress={() => {
-                    console.log("add to cart");
+                    addToCart();
                 }}
                 title="Add to cart"
                 disabled={selectedModel === null}

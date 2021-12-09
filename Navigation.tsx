@@ -8,6 +8,7 @@ import LikesScreen from "./screens/LikesScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import ProductScreen from "./screens/ProductScreen";
 import { Product } from "./api/products";
+import ProceedScreen from "./screens/Proceed";
 
 export type RootTabParamList = {
     main: undefined;
@@ -30,9 +31,15 @@ export type LikeStackParamList = {
     };
 };
 
+export type CartStackParamList = {
+    cartScreen: undefined;
+    proceed: undefined;
+};
+
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const LikeStack = createNativeStackNavigator<LikeStackParamList>();
+const CartStack = createNativeStackNavigator<CartStackParamList>();
 
 const HomeStackNavigator = () => {
     return (
@@ -60,6 +67,23 @@ const LikeStackNavigator = () => {
     );
 };
 
+const CartStackNavigator = () => {
+    return (
+        <CartStack.Navigator screenOptions={{ headerShown: false }}>
+            <CartStack.Screen
+                name="cartScreen"
+                component={CartScreen}
+                options={{ title: "Cart", headerShown: false }}
+            />
+            <CartStack.Screen
+                name="proceed"
+                component={ProceedScreen}
+                options={{ title: "Proceed", headerShown: false }}
+            />
+        </CartStack.Navigator>
+    );
+};
+
 export default function Navigation() {
     return (
         <Tab.Navigator tabBar={(props) => <CustomTabBar {...props} />}>
@@ -75,7 +99,7 @@ export default function Navigation() {
             />
             <Tab.Screen
                 name="cart"
-                component={CartScreen}
+                component={CartStackNavigator}
                 options={{ title: "Cart", headerShown: false, unmountOnBlur: true }}
             />
             <Tab.Screen
