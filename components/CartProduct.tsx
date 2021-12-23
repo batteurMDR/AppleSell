@@ -6,15 +6,17 @@ import { ProductInCart } from "../screens/CartScreen";
 export interface CartProductProps {
     product: ProductInCart;
     isPurchased?: boolean;
+    onUpdate: () => void;
 }
 
 export default function CartProduct(props: CartProductProps) {
-    const updateQuantity = (plus: boolean) => {
-        toggleCart(
+    const updateQuantity = async (plus: boolean) => {
+        await toggleCart(
             props.product.product.name,
             props.product.model,
             plus ? props.product.quantity + 1 : props.product.quantity - 1
         );
+        props.onUpdate();
     };
 
     return (

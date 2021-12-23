@@ -34,6 +34,9 @@ export default function CartScreen() {
         });
     });
     useEffect(() => {
+        getCart();
+    }, []);
+    const getCart = () => {
         Promise.all([getProducts(), getCarts()]).then(([products, carts]) => {
             const filteredProducts: ProductInCart[] = [];
             for (let cart of carts) {
@@ -48,7 +51,7 @@ export default function CartScreen() {
             }
             setProducts(filteredProducts);
         });
-    }, []);
+    };
 
     const totalPrice = () => {
         let price = 0;
@@ -97,7 +100,11 @@ export default function CartScreen() {
                     <React.Fragment>
                         <ScrollView>
                             {products.map((product) => (
-                                <CartProduct key={product.product.name + product.model} product={product} />
+                                <CartProduct
+                                    key={product.product.name + product.model}
+                                    product={product}
+                                    onUpdate={() => getCart()}
+                                />
                             ))}
                         </ScrollView>
                         <View style={styles.priceContainer}>
